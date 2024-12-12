@@ -81,6 +81,47 @@ public class MultiplayerManager : NetworkBehaviour
         StartCoroutine(FindGM());
         Debug.Log("Starting Game...");
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void BeginPlayFirstServerRpc()
+    {
+        BeginPlayFirstClientRpc();
+    }
+    
+    [ClientRpc]
+    private void BeginPlayFirstClientRpc()
+    {
+        gm.isHostsTurn = true;
+        gm.GameBegin();
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void BeginPlaySecondServerRpc()
+    {
+        BeginPlaySecondClientRpc();
+    }
+    
+    [ClientRpc]
+    private void BeginPlaySecondClientRpc()
+    {
+        gm.isHostsTurn = false;
+        gm.GameBegin();
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void BeginPlayRandomServerRpc()
+    {
+        gm.ChooseRandomPlayerOrder();
+        BeginPlayRandomClientRpc(gm.isHostsTurn);
+    }
+    
+    [ClientRpc]
+    private void BeginPlayRandomClientRpc(bool hostStarts)
+    {
+        gm.isHostsTurn = hostStarts;
+        gm.GameBegin();
+    }
+    
     
     [ServerRpc(RequireOwnership = false)]
     public void RematchServerRpc()

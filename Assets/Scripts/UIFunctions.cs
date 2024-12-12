@@ -53,6 +53,21 @@ public class UIFunctions : MonoBehaviour
     {
         MultiplayerManager.Singleton.StartGameServerRpc();
     }
+    
+    public void BeginPlayFirst()
+    {
+        MultiplayerManager.Singleton.BeginPlayFirstServerRpc();
+    }
+    
+    public void BeginPlaySecond()
+    {
+        MultiplayerManager.Singleton.BeginPlaySecondServerRpc();
+    }
+    
+    public void BeginPlayRandom()
+    {
+        MultiplayerManager.Singleton.BeginPlayRandomServerRpc();
+    }
 
     public void StartButtonFunction()
     {

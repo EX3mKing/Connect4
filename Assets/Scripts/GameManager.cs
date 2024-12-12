@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,8 +36,18 @@ public class GameManager : MonoBehaviour
     private float offsetUp;
     private float offsetRight;
 
+    public bool canStartPlaying = false;
     public bool isHostsTurn = true;
     public bool isHost;
+
+    public GameObject choosePlayerOrderCanvas;
+    
+    public CanvasGroup turnOrderGroup;
+    public GameObject goingFirstText;
+    public GameObject goingSecondText;
+    public float showInterpolationSpeed;
+    public float hideInterpolationSpeed;
+    public float showDuration;
 
     private void Start()
     {
@@ -51,6 +62,7 @@ public class GameManager : MonoBehaviour
         
         MultiplayerManager.Singleton.input.AddListener(mmdroptoken);
         isHost = NetworkManager.Singleton.IsHost;
+        if (isHost) choosePlayerOrderCanvas.SetActive(true);
     }
     
     private void DropToken(int column, int player)
@@ -81,7 +93,8 @@ public class GameManager : MonoBehaviour
                     token = Instantiate(yellowToken, spawnPosition, Quaternion.identity);
                 }
 
-                StartCoroutine(TokenFall(token, offsetUp * i));
+                token.transform.localScale = Vector3.one * radius * 100f;
+                StartCoroutine(TokenFall(token, offsetUp * i + radius));
                 break;
             }
         }
@@ -184,6 +197,44 @@ public class GameManager : MonoBehaviour
 
     public bool CanDrop()
     {
-        return isHost == isHostsTurn;
+        return isHost == isHostsTurn && canStartPlaying;
+    }
+    
+    public void GameBegin()
+    {
+        canStartPlaying = true;
+        choosePlayerOrderCanvas.SetActive(false);
+        StartCoroutine(ShowTurnOrderCanvasAlphaInterpolation());
+    }
+    
+    public void ChooseRandomPlayerOrder()
+    {
+        isHostsTurn = UnityEngine.Random.Range(0, 2) == 0;
+    }
+
+    private IEnumerator ShowTurnOrderCanvasAlphaInterpolation()
+    {
+        turnOrderGroup.alpha = 0;
+        
+        if (isHost == isHostsTurn)
+        {
+            goingFirstText.SetActive(true);
+        }
+        else
+        {
+            goingSecondText.SetActive(true);
+        }
+        
+        while (turnOrderGroup.alpha < 1)
+        {
+            turnOrderGroup.alpha += Time.deltaTime * showInterpolationSpeed;
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(showDuration);
+        while (turnOrderGroup.alpha > 0)
+        {
+            turnOrderGroup.alpha -= Time.deltaTime * hideInterpolationSpeed;
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
