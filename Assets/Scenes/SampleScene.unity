@@ -6053,9 +6053,9 @@ MonoBehaviour:
   bottomLeftCornerOneRight: {fileID: 1175003929}
   radius: 0.25
   gameend: 0
-  startingHeight: 15
+  startingHeight: 3.7
   canStartPlaying: 0
-  isHostsTurn: 1
+  isHostsTurn: 0
   isHost: 0
   choosePlayerOrderCanvas: {fileID: 1769355044}
   turnOrderGroup: {fileID: 734190682}
@@ -6064,3 +6064,6 @@ MonoBehaviour:
   showInterpolationSpeed: 5
   hideInterpolationSpeed: 1
   showDuration: 1.54
+  dropSound: {fileID: 8300000, guid: 9d51078ddc6aab54ba90130f8ad650ec, type: 3}
+  landSound: {fileID: 8300000, guid: 4f898f6a54019eb4fac47dc9f624e192, type: 3}
+  music: {fileID: 8300000, guid: 41366203677e6b543b7143c492ca5077, type: 3}

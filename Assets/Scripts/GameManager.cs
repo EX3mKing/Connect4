@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
     public float showInterpolationSpeed;
     public float hideInterpolationSpeed;
     public float showDuration;
+    
+    public AudioClip dropSound;
+    public AudioClip landSound;
+    public AudioClip music;
 
     private void Start()
     {
@@ -63,10 +67,13 @@ public class GameManager : MonoBehaviour
         MultiplayerManager.Singleton.input.AddListener(mmdroptoken);
         isHost = NetworkManager.Singleton.IsHost;
         if (isHost) choosePlayerOrderCanvas.SetActive(true);
+        
+        AudioManager.instance.ChangeBackgroundMusic(music);
     }
     
     private void DropToken(int column, int player)
     {
+        AudioManager.instance.PlaySound(dropSound);
         if (space[column][height - 1] != 0 || gameend)
         {
             return;
@@ -176,6 +183,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         
+        AudioManager.instance.PlaySound(landSound);
         token.transform.position = new Vector3(token.transform.position.x, targetHeight, token.transform.position.z);
     }
 

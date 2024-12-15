@@ -33,7 +33,7 @@ Transform:
   - {fileID: 6109987530730781238}
   - {fileID: 342206221478028715}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8231012260036501824
 MonoBehaviour:
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a4586d2fba3f84aa6fcbee5ff437fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 8300000, guid: e00394fa28c60cd42987293bbc55f1c7, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: 1f19452c3e959574a94283acdd53a66d, type: 3}
   sfxSource: {fileID: 3135270613382526039}
   musicSource: {fileID: 648472016245635435}
 --- !u!81 &3900001696739640999
@@ -228,7 +228,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e00394fa28c60cd42987293bbc55f1c7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1f19452c3e959574a94283acdd53a66d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
